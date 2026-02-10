@@ -36,10 +36,10 @@ def rocm_smi_parser(output: dict) -> dict:
 def bytes_to_mb(bytes: int):
     return bytes // (1024 * 1024)
 
-def init_gpu():
-    global gpu_info
-    data = get_gpu_stats()
-    gpu_info = GPUInfo('RX 9070XT',data['vram_free'],
-    data['vram_used'], data['vram_free'], data['util'],
-    data['temp_c']
+def init_gpu() -> GPUInfo:
+    data: dict = get_gpu_stats()
+    gpu_info: GPUInfo = GPUInfo('RX 9070XT',data['vram_total'],
+    data['vram_used'], data['vram_free'], int(float(data['util'])),
+    int(float(data['temp_c']))
     )
+    return gpu_info

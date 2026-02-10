@@ -1,9 +1,11 @@
 from datetime import datetime
 from enum import StrEnum
 from typing import Optional
-from uuid import uuid4
+from uuid import uuid4, UUID
 from pydantic import BaseModel, Field, field_validator
 
+
+# TODO: add Pydantic field validation and default factories
 
 class JobStatus(StrEnum):
     """
@@ -30,7 +32,7 @@ class Job(BaseModel):
     """
     Represents an ML workload to be scheduled. 
     """
-    job_id: uuid4
+    job_id: UUID
     command: str
 
     vram_required_mb: int
@@ -45,9 +47,9 @@ class Job(BaseModel):
 
 class JobMetrics(BaseModel):
     """
-    Represents metrics for a compeleted job
+    Represents metrics for a completed job
     """
-    job_id: uuid4
+    job_id: UUID
 
     wait_time_seconds: int
 
@@ -66,7 +68,7 @@ class JobSubmitRequest(BaseModel):
     Represents request body for POST /jobs
     """
     command: str
-    vram_required: int
+    vram_required_mb: int
     priority: int
 
 class JobSubmitResponse(BaseModel):
