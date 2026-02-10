@@ -13,21 +13,11 @@ class GPUInfo:
     util: int
     temp: int
 
-def init_gpu():
-    global gpu_info
-    data = get_gpu_stats()
-    gpu_info = GPUInfo('RX 9070XT',data['vram_free'],
-    data['vram_used'], data['vram_free'], data['util'],
-    data['temp_c']
-    )
-    return
-
 def get_gpu_stats():
     result = subprocess.run(ROCM_CMD, capture_output=True, text=True, check=True)
     output = json.loads(result.stdout)
     return rocm_smi_parser(output)
-
-    
+  
 def rocm_smi_parser(output: dict) -> dict:
     stats = {}
     for field in output['card0']:
@@ -46,5 +36,10 @@ def rocm_smi_parser(output: dict) -> dict:
 def bytes_to_mb(bytes: int):
     return bytes // (1024 * 1024)
 
-init_gpu()
-print(gpu_info)
+def init_gpu():
+    global gpu_info
+    data = get_gpu_stats()
+    gpu_info = GPUInfo('RX 9070XT',data['vram_free'],
+    data['vram_used'], data['vram_free'], data['util'],
+    data['temp_c']
+    )
