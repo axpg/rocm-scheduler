@@ -28,6 +28,7 @@ class SchedulingPolicy(StrEnum):
     PRIORITY = "priority"
     FIRST_FIT = "first_fit"
 
+# TODO: dynamic UUID via default factory 
 class Job(BaseModel):
     """
     Represents an ML workload to be scheduled. 
@@ -45,6 +46,7 @@ class Job(BaseModel):
 
     exit_code: int
 
+# TODO: dynamic UUID via default factory 
 class JobMetrics(BaseModel):
     """
     Represents metrics for a completed job

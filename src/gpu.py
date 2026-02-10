@@ -13,7 +13,7 @@ class GPUInfo:
     util: int
     temp: int
 
-def get_gpu_stats():
+def get_gpu_stats() -> dict:
     result = subprocess.run(ROCM_CMD, capture_output=True, text=True, check=True)
     output = json.loads(result.stdout)
     return rocm_smi_parser(output)
@@ -33,7 +33,7 @@ def rocm_smi_parser(output: dict) -> dict:
     stats['vram_free'] = stats['vram_total'] - stats['vram_used']
     return stats
 
-def bytes_to_mb(bytes: int):
+def bytes_to_mb(bytes: int) -> int:
     return bytes // (1024 * 1024)
 
 def init_gpu() -> GPUInfo:
